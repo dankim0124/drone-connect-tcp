@@ -1,0 +1,13 @@
+import WebSocket from "ws";
+
+const wsc = new WebSocket("ws://localhost:8282");
+
+const speed = 1
+const speed2 = 2
+
+wsc.addEventListener("open",()=>{
+    console.log("connected to server")
+    const data = JSON.stringify({key1:1,key2:2});
+    wsc.send(data);
+}
+)

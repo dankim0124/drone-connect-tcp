@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 
-const wsc = new WebSocket("ws://localhost:8282");
+const wsc = new WebSocket("ws://192.168.1.192:8282");
 
 const speed = 1
 const speed2 = 2

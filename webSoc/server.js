@@ -2,6 +2,7 @@ import WebSocket from "ws";
 
 const wss = new WebSocket.Server({port:8282});
 
+console.log("run server : commit - m 'add real ip address'");
 wss.on("connection", ws=>{
     console.log("connected ~ ")
 

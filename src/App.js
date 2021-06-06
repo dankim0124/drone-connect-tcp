@@ -29,7 +29,7 @@ function App() {
 }
 
 const callServer = () => {
-  const wsc = new WebSocket("ws://192.168.1.192:8282/websocket");
+  const wsc = new WebSocket("ws://192.168.35.229:8282");
 
   console.log("try to connect .....");
 

@@ -1,9 +1,12 @@
 import WebSocket from "ws";
 
-const wsc = new WebSocket("ws://192.168.1.192:8282/websocket");
+const wsc = new WebSocket("ws://175.123.206.100:8282/websocket");
 
 const speed = 1
 const speed2 = 2
+
+//175.123.206.100:8282
+//192.168.1.192:8282
 
 wsc.addEventListener("open",()=>{
     console.log("connected to server")

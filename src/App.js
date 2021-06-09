@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Input, Button, Space } from "antd";
+import { Input, Button } from "antd";
 import styled from "styled-components";
 
 import logo from "./drone2.png";
@@ -10,24 +10,28 @@ const tab = <span class="tab">&#9;</span>;
 const App = () => {
   useEffect(() => {
     console.log("web opened ! ");
-    callServer();
   }, []);
 
   const [IP, setIP] = useState();
   const [speed, setSpeed] = useState();
+  const [time, setTime] = useState();
 
   const handleIPChanged = (e) => {
-    setIP(e.target.value)
+    setIP(e.target.value);
+  };
+
+  const handleTimeChanged = (e) => {
+    setTime(e.target.value);
   };
 
   const handleSpeedChanged = (e) => {
-    setSpeed(e.target.value)
+    setSpeed(e.target.value);
   };
 
-  const handleClick = (e) =>{
-    console.log( speed, " & ", IP)
-  }
-
+  const handleClick = (e) => {
+    console.log(speed, " & ", IP);
+    callServer(speed, IP,time);
+  };
 
   return (
     <div className="App">
@@ -38,30 +42,39 @@ const App = () => {
           <InputLine>
             <span>Ip address: </span>
             <tab />
-            <Input placeholder="17x.xxx.2xx.1xx:82xx"
-            value = {IP}
-            onChange = {handleIPChanged} />
+            <Input
+              placeholder="17x.xxx.2xx.1xx:82xx"
+              value={IP}
+              onChange={handleIPChanged}
+            />
           </InputLine>
+
           <InputLine>
             <span>speed: </span>
             <tab />
-            <Input value = {speed} onChange = {(e) =>handleSpeedChanged(e)} />
+            <Input value={speed} onChange={handleSpeedChanged} />
+          </InputLine>
+
+          <InputLine>
+            <span>Time: </span>
+            <tab />
+            <Input value={time} onChange={handleTimeChanged} />
           </InputLine>
         </InputContainer>
 
-        <Button onClick = {handleClick}>Submit</Button>
+        <Button onClick={handleClick}>Submit</Button>
       </header>
     </div>
   );
 };
 
-const callServer = () => {
-  const wsc = new WebSocket("ws://175.123.206.100:8282");
-  console.log("try to connect ..... to ws://175.123.206.100:8282");
+const callServer = (speed, IP, time) => {
+  const wsc = new WebSocket("ws://" + IP+ ":8282");
+  console.log("try to connect ..... to ws://"+ IP +":8282");
 
   wsc.addEventListener("open", () => {
     console.log("connected to server");
-    const data = JSON.stringify({ key1: 1, key2: 2 });
+    const data = JSON.stringify({ speed: speed, IP: IP, time: time });
     wsc.send(data);
   });
 };

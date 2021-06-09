@@ -1,37 +1,63 @@
-import {useEffect} from "react";
-import logo from "./logo.svg";
+import { useEffect, useState } from "react";
+import { Input, Button, Space } from "antd";
+import styled from "styled-components";
+
+import logo from "./drone2.png";
 import "./App.css";
 
+const tab = <span class="tab">&#9;</span>;
 
-function App() {
-  useEffect(()=>{
+const App = () => {
+  useEffect(() => {
     console.log("web opened ! ");
-    callServer()
-  },[])
+    callServer();
+  }, []);
+
+  const [IP, setIP] = useState();
+  const [speed, setSpeed] = useState();
+
+  const handleIPChanged = (e) => {
+    setIP(e.target.value)
+  };
+
+  const handleSpeedChanged = (e) => {
+    setSpeed(e.target.value)
+  };
+
+  const handleClick = (e) =>{
+    console.log( speed, " & ", IP)
+  }
+
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h2>Drone Connector</h2>
+        <InputContainer>
+          <InputLine>
+            <span>Ip address: </span>
+            <tab />
+            <Input placeholder="17x.xxx.2xx.1xx:82xx"
+            value = {IP}
+            onChange = {handleIPChanged} />
+          </InputLine>
+          <InputLine>
+            <span>speed: </span>
+            <tab />
+            <Input value = {speed} onChange = {(e) =>handleSpeedChanged(e)} />
+          </InputLine>
+        </InputContainer>
+
+        <Button onClick = {handleClick}>Submit</Button>
       </header>
     </div>
   );
-}
+};
 
 const callServer = () => {
-  const wsc = new WebSocket("ws://http://175.123.206.100:8282");
-
-  console.log("try to connect ..... to ws://http://175.123.206.100:8282");
+  const wsc = new WebSocket("ws://175.123.206.100:8282");
+  console.log("try to connect ..... to ws://175.123.206.100:8282");
 
   wsc.addEventListener("open", () => {
     console.log("connected to server");
@@ -39,5 +65,19 @@ const callServer = () => {
     wsc.send(data);
   });
 };
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputLine = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  justify-content: space-around;
+  margin: 15px;
+`;
 
 export default App;

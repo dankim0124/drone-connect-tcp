@@ -5,7 +5,6 @@ import styled from "styled-components";
 import logo from "./drone2.png";
 import "./App.css";
 
-const tab = <span class="tab">&#9;</span>;
 
 const App = () => {
   useEffect(() => {
@@ -41,7 +40,7 @@ const App = () => {
         <InputContainer>
           <InputLine>
             <span>Ip address: </span>
-            <tab />
+            <span>&#9;</span>
             <Input
               placeholder="17x.xxx.2xx.1xx:82xx"
               value={IP}
@@ -51,13 +50,13 @@ const App = () => {
 
           <InputLine>
             <span>speed: </span>
-            <tab />
+            <span>&#9;</span>
             <Input value={speed} onChange={handleSpeedChanged} />
           </InputLine>
 
           <InputLine>
             <span>Time: </span>
-            <tab />
+            <span>&#9;</span>
             <Input value={time} onChange={handleTimeChanged} />
           </InputLine>
         </InputContainer>
